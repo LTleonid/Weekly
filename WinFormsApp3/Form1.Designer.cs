@@ -36,9 +36,7 @@
             // 
             // tick
             // 
-            tick.Enabled = true;
-            tick.Interval = 1;
-            tick.Tick += tick_Tick;
+
             // 
             // label1
             // 
