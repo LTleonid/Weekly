@@ -17,8 +17,8 @@ namespace WinFormsApp3
 
         public int CameraX = 0;
         public int CameraY = 0;
-        public int localX = 0;
-        public int localY = 0;
+
+
 
         List<Control> gameObjects = new List<Control>();
 
@@ -34,12 +34,12 @@ namespace WinFormsApp3
 
             Init();
             this.KeyPreview = true;
-
+            int fps = 100;
             System.Windows.Forms.Timer movementTimer = new System.Windows.Forms.Timer();
-            movementTimer.Interval = 10;
+            movementTimer.Interval = (1000 / fps);
             movementTimer.Tick += MovementTimer_Tick;
             movementTimer.Start();
-            int fps = 100;
+            
 
             System.Windows.Forms.Timer cameraTimer = new System.Windows.Forms.Timer();
             cameraTimer.Interval = (1000/fps); 
@@ -66,25 +66,31 @@ namespace WinFormsApp3
             string text = "";
             foreach (var obj in gameObjects)
             {
+                KeyValuePair<int, int>? coords = (KeyValuePair<int, int>)obj.Tag;
 
-                int screenX = obj.Location.X - CameraX;
-                int screenY = obj.Location.Y - CameraY;
+                int screenX = coords.Value.Value - CameraX;
+                int screenY = coords.Value.Key - CameraY;
 
 
                 if (screenX + obj.Width > 0 && screenX < ViewportWidth &&
                     screenY + obj.Height > 0 && screenY < ViewportHeight)
-                { 
-                    obj.Location = new Point(screenX, screenY);
-                    obj.Visible = true; 
-                    
+                {
+                    if (obj.Name != "player")
+                    {
+                        obj.Location = new Point(screenX, screenY);
+
+                        obj.Visible = true;
+                    }
+                   
                 }
                 else
                 {
+                    obj.Location = new Point(obj.Location.X - CameraX, obj.Location.Y - CameraY);
                     obj.Visible = false;
                 }
                 text += $"{obj.GetHashCode()} | {obj.Name} : {obj.Location} | {obj.Visible}\n";
             }
-            text += $"{CameraX}, {CameraY} {localX} {localY}";
+            text += $"{CameraX}, {CameraY} | {button1.Location.X} , {button1.Location.Y}";
             form.label.Text = text; 
         }
 
@@ -96,14 +102,15 @@ namespace WinFormsApp3
             if (Mleft) deltaX -= 3;
             if (Mup) deltaY -= 3;
             if (Mdown) deltaY += 3;
-            localX += deltaX;
-            localY += deltaY;
+            
             if (deltaX != 0 || deltaY != 0)
             {
                 int newX = button1.Location.X + deltaX + CameraX;
                 int newY = button1.Location.Y + deltaY + CameraY;
+
                 newX = Math.Max(0, Math.Min(newX, WorldWidth - button1.Width));
                 newY = Math.Max(0, Math.Min(newY, WorldHeight - button1.Height));
+
                 button1.Location = new Point(newX - CameraX, newY - CameraY);
             }
         }
@@ -136,7 +143,7 @@ namespace WinFormsApp3
             button1.Size = new Size(40, 40);
             button1.TabIndex = 0;
             button1.UseVisualStyleBackColor = true;
-
+            button1.Tag = new KeyValuePair<int, int>(button1.Location.X, button1.Location.Y);
             Controls.Add(button1);
             gameObjects.Add(button1);
             Random rnd = new Random();
@@ -148,6 +155,7 @@ namespace WinFormsApp3
                 obj.Size = new Size(30, 30);
                 obj.BackColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
                 obj.Name = obj.BackColor.Name;
+                obj.Tag = new KeyValuePair<int, int> (obj.Location.X, obj.Location.Y);
                 Controls.Add(obj);
                 gameObjects.Add(obj);
             }
