@@ -1,6 +1,6 @@
 namespace WinFormsApp3
 {
-    public partial class Form1 : Form
+    public partial class Game : Form
     {
         Button button1;
         public bool Mdown;
@@ -22,7 +22,7 @@ namespace WinFormsApp3
 
         List<Control> gameObjects = new List<Control>();
 
-        public Form1()
+        public Game()
         {
             Mdown = false;
             Mup = false;
@@ -50,11 +50,11 @@ namespace WinFormsApp3
         private void CameraTimer_Tick(object sender, EventArgs e)
         {
             var playerWorldPos = (KeyValuePair<int, int>)button1.Tag;
-            int targetX = playerWorldPos.Value - ViewportWidth / 2;
-            int targetY = playerWorldPos.Key - ViewportHeight / 2; 
+            int targetX = playerWorldPos.Value - ((ViewportWidth - button1.Size.Width) / 2);
+            int targetY = playerWorldPos.Key - ((ViewportHeight- button1.Size.Height) / 2);
 
-            CameraX += (int)((targetX - CameraX)*0.2);
-            CameraY += (int)((targetY - CameraY)*0.2);
+            CameraX += (int)((targetX - CameraX)*0.1);
+            CameraY += (int)((targetY - CameraY)*0.1);
 
             CameraX = Math.Max(CameraX, Math.Min(CameraX, WorldWidth - ViewportWidth));
             CameraY = Math.Max(CameraY, Math.Min(CameraY, WorldHeight - ViewportHeight));
@@ -86,7 +86,7 @@ namespace WinFormsApp3
                 }
                 else
                 {
-                    obj.Location = new Point(obj.Location.X - CameraX, obj.Location.Y - CameraY);
+                  // obj.Location = new Point(obj.Location.X - CameraX, obj.Location.Y - CameraY);
                     obj.Visible = false;
                 }
                 text += $"{obj.GetHashCode()} | {obj.Name} : {obj.Location} | {obj.Visible}\n";
