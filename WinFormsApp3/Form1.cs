@@ -8,12 +8,12 @@ namespace WinFormsApp3
         public bool Mleft;
         public bool Mright;
 
-        int WorldWidth = 1000;
-        int WorldHeight = 1000;
+        int WorldWidth = 3000;
+        int WorldHeight = 3000;
         Form2 form = new Form2();
 
-        int ViewportWidth = 400;
-        int ViewportHeight = 400;
+        int ViewportWidth = 600;
+        int ViewportHeight = 600;
 
         public int CameraX = 0;
         public int CameraY = 0;
@@ -39,25 +39,26 @@ namespace WinFormsApp3
             movementTimer.Interval = (1000 / fps);
             movementTimer.Tick += MovementTimer_Tick;
             movementTimer.Start();
-            
+
 
             System.Windows.Forms.Timer cameraTimer = new System.Windows.Forms.Timer();
-            cameraTimer.Interval = (1000/fps); 
+            cameraTimer.Interval = (1000 / fps);
             cameraTimer.Tick += CameraTimer_Tick;
             cameraTimer.Start();
         }
 
         private void CameraTimer_Tick(object sender, EventArgs e)
         {
-            int targetX = button1.Location.X - ViewportWidth / 2;
-            int targetY = button1.Location.Y - ViewportHeight / 2;
+            var playerWorldPos = (KeyValuePair<int, int>)button1.Tag;
+            int targetX = playerWorldPos.Value - ViewportWidth / 2;
+            int targetY = playerWorldPos.Key - ViewportHeight / 2; 
 
-            CameraX += (int)((targetX - CameraX));
-            CameraY += (int)((targetY - CameraY));
+            CameraX += (int)((targetX - CameraX)*0.2);
+            CameraY += (int)((targetY - CameraY)*0.2);
 
             CameraX = Math.Max(CameraX, Math.Min(CameraX, WorldWidth - ViewportWidth));
             CameraY = Math.Max(CameraY, Math.Min(CameraY, WorldHeight - ViewportHeight));
-
+            button1.Location = new Point(playerWorldPos.Value - CameraX, playerWorldPos.Key - CameraY);
             UpdateObjectsPosition();
         }
 
@@ -81,7 +82,7 @@ namespace WinFormsApp3
 
                         obj.Visible = true;
                     }
-                   
+
                 }
                 else
                 {
@@ -91,7 +92,7 @@ namespace WinFormsApp3
                 text += $"{obj.GetHashCode()} | {obj.Name} : {obj.Location} | {obj.Visible}\n";
             }
             text += $"{CameraX}, {CameraY} | {button1.Location.X} , {button1.Location.Y}";
-            form.label.Text = text; 
+            form.label.Text = text;
         }
 
         private void MovementTimer_Tick(object sender, EventArgs e)
@@ -102,18 +103,23 @@ namespace WinFormsApp3
             if (Mleft) deltaX -= 3;
             if (Mup) deltaY -= 3;
             if (Mdown) deltaY += 3;
-            
+
             if (deltaX != 0 || deltaY != 0)
             {
-                int newX = button1.Location.X + deltaX + CameraX;
-                int newY = button1.Location.Y + deltaY + CameraY;
+
+                var worldPos = (KeyValuePair<int, int>)button1.Tag;
+                int newX = worldPos.Value + deltaX;
+                int newY = worldPos.Key + deltaY;
 
                 newX = Math.Max(0, Math.Min(newX, WorldWidth - button1.Width));
                 newY = Math.Max(0, Math.Min(newY, WorldHeight - button1.Height));
 
+
+                button1.Tag = new KeyValuePair<int, int>(newY, newX);
                 button1.Location = new Point(newX - CameraX, newY - CameraY);
             }
         }
+
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -138,7 +144,7 @@ namespace WinFormsApp3
         public void Init()
         {
             button1 = new Button();
-            button1.Location = new Point(ViewportWidth / 2, ViewportHeight / 2); 
+            button1.Location = new Point(ViewportWidth / 2, ViewportHeight / 2);
             button1.Name = "player";
             button1.Size = new Size(40, 40);
             button1.TabIndex = 0;
@@ -150,21 +156,21 @@ namespace WinFormsApp3
             for (int i = 0; i < 20; i++)
             {
                 Button obj = new Button();
-                
+
                 obj.Location = new Point(rnd.Next(WorldWidth), rnd.Next(WorldHeight));
                 obj.Size = new Size(30, 30);
                 obj.BackColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
                 obj.Name = obj.BackColor.Name;
-                obj.Tag = new KeyValuePair<int, int> (obj.Location.X, obj.Location.Y);
+                obj.Tag = new KeyValuePair<int, int>(obj.Location.X, obj.Location.Y);
                 Controls.Add(obj);
                 gameObjects.Add(obj);
             }
-            
+
             form.Show();
-            
+
         }
     }
-    
+
     public class Form2 : Form
     {
         public Label label;
@@ -172,11 +178,11 @@ namespace WinFormsApp3
         {
             this.ClientSize = new Size(400, 600);
             label = new Label();
-            label.Location = new Point(10,0);
+            label.Location = new Point(10, 0);
             label.Text = " 123";
             label.Width = 400;
             label.Height = 600;
-            Controls.Add (label);
+            Controls.Add(label);
 
         }
     }
