@@ -2,25 +2,25 @@ namespace WinFormsApp3
 {
     public partial class Game : Form
     {
-        Button button1;
+        
         public bool Mdown;
         public bool Mup;
         public bool Mleft;
         public bool Mright;
 
-        int WorldWidth = 3000;
-        int WorldHeight = 3000;
+        protected int WorldWidth = 3000;
+        protected int WorldHeight = 3000;
         Form2 form = new Form2();
 
-        int ViewportWidth = 600;
-        int ViewportHeight = 600;
+        protected int ViewportWidth = 600;
+        protected int ViewportHeight = 600;
 
         public int CameraX = 0;
         public int CameraY = 0;
 
+        Player.Player Player;
 
-
-        List<Control> gameObjects = new List<Control>();
+        protected List<Control> gameObjects = new List<Control>();
 
         public Game()
         {
@@ -29,7 +29,8 @@ namespace WinFormsApp3
             Mleft = false;
             Mright = false;
             InitializeComponent();
-
+            this.BackColor = Color.Green;
+            
             this.ClientSize = new Size(ViewportWidth, ViewportHeight);
 
             Init();
@@ -49,16 +50,16 @@ namespace WinFormsApp3
 
         private void CameraTimer_Tick(object sender, EventArgs e)
         {
-            var playerWorldPos = (KeyValuePair<int, int>)button1.Tag;
-            int targetX = playerWorldPos.Value - ((ViewportWidth - button1.Size.Width) / 2);
-            int targetY = playerWorldPos.Key - ((ViewportHeight- button1.Size.Height) / 2);
+            var playerWorldPos = (KeyValuePair<int, int>)Player.person.Tag;
+            int targetX = playerWorldPos.Value - ((ViewportWidth - Player.person.Size.Width) / 2);
+            int targetY = playerWorldPos.Key - ((ViewportHeight- Player.person.Size.Height) / 2);
 
             CameraX += (int)((targetX - CameraX)*0.1);
             CameraY += (int)((targetY - CameraY)*0.1);
 
             CameraX = Math.Max(CameraX, Math.Min(CameraX, WorldWidth - ViewportWidth));
             CameraY = Math.Max(CameraY, Math.Min(CameraY, WorldHeight - ViewportHeight));
-            button1.Location = new Point(playerWorldPos.Value - CameraX, playerWorldPos.Key - CameraY);
+            Player.person.Location = new Point(playerWorldPos.Value - CameraX, playerWorldPos.Key - CameraY);
             UpdateObjectsPosition();
         }
 
@@ -91,7 +92,7 @@ namespace WinFormsApp3
                 }
                 text += $"{obj.GetHashCode()} | {obj.Name} : {obj.Location} | {obj.Visible}\n";
             }
-            text += $"{CameraX}, {CameraY} | {button1.Location.X} , {button1.Location.Y}";
+            text += $"{CameraX}, {CameraY} | {Player.person.Location.X} , {Player.person.Location.Y}";
             form.label.Text = text;
         }
 
@@ -107,16 +108,16 @@ namespace WinFormsApp3
             if (deltaX != 0 || deltaY != 0)
             {
 
-                var worldPos = (KeyValuePair<int, int>)button1.Tag;
+                var worldPos = (KeyValuePair<int, int>)Player.person.Tag;
                 int newX = worldPos.Value + deltaX;
                 int newY = worldPos.Key + deltaY;
 
-                newX = Math.Max(0, Math.Min(newX, WorldWidth - button1.Width));
-                newY = Math.Max(0, Math.Min(newY, WorldHeight - button1.Height));
+                newX = Math.Max(0, Math.Min(newX, WorldWidth - Player.person.Width));
+                newY = Math.Max(0, Math.Min(newY, WorldHeight - Player.person.Height));
 
 
-                button1.Tag = new KeyValuePair<int, int>(newY, newX);
-                button1.Location = new Point(newX - CameraX, newY - CameraY);
+                Player.person.Tag = new KeyValuePair<int, int>(newY, newX);
+                Player.person.Location = new Point(newX - CameraX, newY - CameraY);
             }
         }
 
@@ -143,15 +144,9 @@ namespace WinFormsApp3
 
         public void Init()
         {
-            button1 = new Button();
-            button1.Location = new Point(ViewportWidth / 2, ViewportHeight / 2);
-            button1.Name = "player";
-            button1.Size = new Size(40, 40);
-            button1.TabIndex = 0;
-            button1.UseVisualStyleBackColor = true;
-            button1.Tag = new KeyValuePair<int, int>(button1.Location.X, button1.Location.Y);
-            Controls.Add(button1);
-            gameObjects.Add(button1);
+
+            Player = new Player.Player(ViewportWidth, ViewportHeight, Controls, gameObjects, "player", 100);
+
             Random rnd = new Random();
             for (int i = 0; i < 20; i++)
             {

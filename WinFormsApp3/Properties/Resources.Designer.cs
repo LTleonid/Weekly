@@ -63,6 +63,16 @@ namespace WinFormsApp3.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GrassBack {
+            get {
+                object obj = ResourceManager.GetObject("GrassBack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap photo_2025_06_22_17_58_42 {
             get {
                 object obj = ResourceManager.GetObject("photo_2025-06-22_17-58-42", resourceCulture);

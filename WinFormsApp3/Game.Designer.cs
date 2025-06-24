@@ -33,12 +33,12 @@
             tick = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
-            // Form1
+            // Game
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(553, 450);
-            Name = "Form1";
+            Name = "Game";
             Text = "Form1";
             ResumeLayout(false);
         }

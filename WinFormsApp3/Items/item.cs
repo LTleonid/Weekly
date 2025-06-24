@@ -1,4 +1,4 @@
-namespace Item
+namespace WinFormsApp3.Items
 {
     public class Item
     {
@@ -21,9 +21,9 @@ namespace Item
         public int Stack { init; get; } // Макс количество в одном слоте
         protected delegate void ConsumeHandler();
         protected event ConsumeHandler? ConsumeEvent; // Событие на использование
-        public required Image Icon { get; set; } // Иконка предмета
+        public required Image? Icon { get; set; } // Иконка предмета
 
-        public void Consume()
+        public virtual void Consume()
         {
             if (!Consumable || Quantity < 1) return;
 
