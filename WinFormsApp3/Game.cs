@@ -1,3 +1,5 @@
+using System.Runtime.Remoting;
+
 namespace WinFormsApp3
 {
     public partial class Game : Form
@@ -150,12 +152,13 @@ namespace WinFormsApp3
             Random rnd = new Random();
             for (int i = 0; i < 20; i++)
             {
-                Button obj = new Button();
+                PictureBox obj = new PictureBox();
 
                 obj.Location = new Point(rnd.Next(WorldWidth), rnd.Next(WorldHeight));
-                obj.Size = new Size(30, 30);
-                obj.BackColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
-                obj.Name = obj.BackColor.Name;
+                obj.Size = new Size(80, 80);
+                obj.Image = Properties.Resources.Tree;
+                obj.SizeMode = PictureBoxSizeMode.StretchImage;
+                obj.Name = "Tree";
                 obj.Tag = new KeyValuePair<int, int>(obj.Location.X, obj.Location.Y);
                 Controls.Add(obj);
                 gameObjects.Add(obj);
