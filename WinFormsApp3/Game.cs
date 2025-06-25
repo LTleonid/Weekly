@@ -52,16 +52,16 @@ namespace WinFormsApp3
 
         private void CameraTimer_Tick(object sender, EventArgs e)
         {
-            var playerWorldPos = (KeyValuePair<int, int>)Player.person.Tag;
-            int targetX = playerWorldPos.Value - ((ViewportWidth - Player.person.Size.Width) / 2);
-            int targetY = playerWorldPos.Key - ((ViewportHeight- Player.person.Size.Height) / 2);
+            var playerWorldPos = (KeyValuePair<int, int>)Player.Sprite.Tag;
+            int targetX = playerWorldPos.Value - ((ViewportWidth - Player.Sprite.Size.Width) / 2);
+            int targetY = playerWorldPos.Key - ((ViewportHeight- Player.Sprite.Size.Height) / 2);
 
             CameraX += (int)((targetX - CameraX)*0.1);
             CameraY += (int)((targetY - CameraY)*0.1);
 
             CameraX = Math.Max(CameraX, Math.Min(CameraX, WorldWidth - ViewportWidth));
             CameraY = Math.Max(CameraY, Math.Min(CameraY, WorldHeight - ViewportHeight));
-            Player.person.Location = new Point(playerWorldPos.Value - CameraX, playerWorldPos.Key - CameraY);
+            Player.Sprite.Location = new Point(playerWorldPos.Value - CameraX, playerWorldPos.Key - CameraY);
             UpdateObjectsPosition();
         }
 
@@ -94,8 +94,13 @@ namespace WinFormsApp3
                 }
                 text += $"{obj.GetHashCode()} | {obj.Name} : {obj.Location} | {obj.Visible}\n";
             }
-            text += $"{CameraX}, {CameraY} | {Player.person.Location.X} , {Player.person.Location.Y}";
+            text += $"{CameraX}, {CameraY} | {Player.Sprite.Location.X} , {Player.Sprite.Location.Y}\n";
+            foreach (var item in Player.inventory)
+            {
+                text += $"{item.Name} | {item.Quantity}\n";
+            }
             form.label.Text = text;
+
         }
 
         private void MovementTimer_Tick(object sender, EventArgs e)
@@ -110,17 +115,18 @@ namespace WinFormsApp3
             if (deltaX != 0 || deltaY != 0)
             {
 
-                var worldPos = (KeyValuePair<int, int>)Player.person.Tag;
+                var worldPos = (KeyValuePair<int, int>)Player.Sprite.Tag;
                 int newX = worldPos.Value + deltaX;
                 int newY = worldPos.Key + deltaY;
 
-                newX = Math.Max(0, Math.Min(newX, WorldWidth - Player.person.Width));
-                newY = Math.Max(0, Math.Min(newY, WorldHeight - Player.person.Height));
+                newX = Math.Max(0, Math.Min(newX, WorldWidth - Player.Sprite.Width));
+                newY = Math.Max(0, Math.Min(newY, WorldHeight - Player.Sprite.Height));
 
 
-                Player.person.Tag = new KeyValuePair<int, int>(newY, newX);
-                Player.person.Location = new Point(newX - CameraX, newY - CameraY);
+                Player.Sprite.Tag = new KeyValuePair<int, int>(newY, newX);
+                Player.Sprite.Location = new Point(newX - CameraX, newY - CameraY);
             }
+            
         }
 
 
@@ -130,6 +136,11 @@ namespace WinFormsApp3
             else if (e.KeyCode == Keys.W) Mup = true;
             else if (e.KeyCode == Keys.S) Mdown = true;
             else if (e.KeyCode == Keys.A) Mleft = true;
+            else if (e.KeyCode == Keys.E)
+            {
+                // Invoke the HarvestEvent safely using a method in the Player class
+                Player.Harvest();
+            }
 
             base.OnKeyDown(e);
         }
@@ -140,7 +151,7 @@ namespace WinFormsApp3
             else if (e.KeyCode == Keys.W) Mup = false;
             else if (e.KeyCode == Keys.S) Mdown = false;
             else if (e.KeyCode == Keys.A) Mleft = false;
-
+            
             base.OnKeyUp(e);
         }
 
@@ -159,6 +170,7 @@ namespace WinFormsApp3
                 obj.Image = Properties.Resources.Tree;
                 obj.SizeMode = PictureBoxSizeMode.StretchImage;
                 obj.Name = "Tree";
+                obj.BringToFront();
                 obj.Tag = new KeyValuePair<int, int>(obj.Location.X, obj.Location.Y);
                 Controls.Add(obj);
                 gameObjects.Add(obj);

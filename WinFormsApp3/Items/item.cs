@@ -24,10 +24,7 @@ namespace WinFormsApp3.Items
         public required Image? Icon { get; set; } // Иконка предмета
 
         public virtual void Consume()
-        {
-            if (!Consumable || Quantity < 1) return;
-
-            Quantity--;
+        { 
             ConsumeEvent?.Invoke();
         }
     }
