@@ -103,8 +103,10 @@ namespace WinFormsApp3
 
         }
 
+
         private void MovementTimer_Tick(object sender, EventArgs e)
         {
+
             int deltaX = 0, deltaY = 0;
 
             if (Mright) deltaX += 3;
