@@ -8,11 +8,12 @@ namespace WinFormsApp3.Items
 {
     internal class Wood : Item
     {
-        public Wood()
+        
+        public Wood() 
         {
             Name = "Wood";
-            Stack = 1;
-            Icon = null; // Замените на реальное изображение дерева
+            Stack = 16;
+            Icon = Properties.Resources.Wood_item; // Замените на реальное изображение дерева
             Consumable = false; // Дерево не является расходным материалом
             Quantity = 1; // Количество в стеке
         }

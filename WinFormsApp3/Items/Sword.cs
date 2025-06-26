@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using WinFormsApp3.Mobs;
-using Player;
 
 namespace WinFormsApp3.Items
 {

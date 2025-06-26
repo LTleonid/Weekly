@@ -3,10 +3,11 @@ using System.Runtime.CompilerServices;
 using WinFormsApp3.Items;
 
 
-namespace Player
+namespace WinFormsApp3.Player
 {
     public class Player : INotifyPropertyChanged
     {
+
         int health;
         protected int Health
         {
@@ -37,14 +38,13 @@ namespace Player
         }
 
 
-
-        public List<Item> inventory;
-
+        List<Control> GameObject; // По ссылке работает
+        public Inventory inventory;
         public PictureBox Sprite;
 
         public Player(int viewportWidth, int viewportHeight, Control.ControlCollection controls, List<Control> gameObjects, string name, int health)
         {
-            inventory = new List<Item>();
+            inventory = new Inventory();
             Health = health;
             Name = name;
             Sprite = new PictureBox();
@@ -56,16 +56,13 @@ namespace Player
             Sprite.Tag = new KeyValuePair<int, int>(Sprite.Location.X, Sprite.Location.Y);
             Sprite.SendToBack();
             controls.Add(Sprite);
-            gameObjects.Add(Sprite);
+            GameObject = gameObjects;
+            GameObject.Add(Sprite);
 
-            HarvestEvent += () => CollectTree(gameObjects); // Fix: Use a lambda expression to match the delegate type
+            HarvestEvent += CollectTree; 
         }
 
-        
-
-        //Использование предмета в руке
-
-        public Item CurrentItem { get; set; } // Текущий предмет игрока
+        public Item CurrentItem { get; set; } 
 
         public void UseCurrentItem()
         {
@@ -74,7 +71,7 @@ namespace Player
                 CurrentItem.Consume();
                 if (CurrentItem.Quantity <= 0)
                 {
-                    inventory.Remove(CurrentItem);
+                    inventory.RemoveItemFromInventory(CurrentItem);
                 }
             }
 
@@ -84,7 +81,6 @@ namespace Player
         {
             int range = 30;
 
-            // Простейшая реализация — зона перед игроком (вправо)
             return new Rectangle(
                 playerSprite.Right,
                 playerSprite.Top,
@@ -93,70 +89,29 @@ namespace Player
             );
         }
 
-        public void AddItemToInventory(Item item)
-        {
-            if (item != null)
-            {
-                // Проверяем, есть ли уже такой предмет в инвентаре
-                var existingItem = inventory.FirstOrDefault(i => i.Name == item.Name);
-                if (existingItem != null)
-                {
-                    // Если предмет уже есть, увеличиваем количество
-                    existingItem.Quantity += item.Quantity;
-                }
-                else
-                {
-                    // Иначе добавляем новый предмет в инвентарь
-                    inventory.Add(item);
-                }
-            }
-        }
-        public void RemoveItemFromInventory(Item item)
-        {
-            if (item != null)
-            {
-                // Проверяем, есть ли предмет в инвентаре
-                var existingItem = inventory.FirstOrDefault(i => i.Name == item.Name);
-                if (existingItem != null)
-                {
-                    // Уменьшаем количество или удаляем предмет, если количество стало 0
-                    existingItem.Quantity -= item.Quantity;
-                    if (existingItem.Quantity <= 0)
-                    {
-                        inventory.Remove(existingItem);
-                    }
-                }
-            }
-        }
+        
         public void CollectTree(List<Control> gameObjects)
         {
-            // Определяем зону атаки игрока
+
             Rectangle attackZone = GetAttackZone(Sprite);
 
-            // Ищем дерево в зоне атаки
             var tree = gameObjects.OfType<PictureBox>()
                                   .FirstOrDefault(obj => obj.Name == "Tree" && attackZone.IntersectsWith(obj.Bounds));
 
             if (tree != null)
             {
-                // Удаляем дерево из игрового мира
                 gameObjects.Remove(tree);
                 tree.Dispose();
 
-                // Добавляем 4 брёвна в инвентарь
-                AddItemToInventory(new Item
-                {
-                    Name = "Log",
-                    Quantity = 4,
-                    Icon = WinFormsApp3.Properties.Resources.Wood_item
-                });
+
+                inventory.AddItemToInventory(new Wood());
             }
         }
-        public delegate void HarvestHandler();
+        public delegate void HarvestHandler(List<Control> Objects);
         public event HarvestHandler? HarvestEvent;
         public void Harvest()
         {
-            HarvestEvent?.Invoke();
+            HarvestEvent?.Invoke(GameObject);
 
         }
     }
