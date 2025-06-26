@@ -9,19 +9,21 @@ namespace WinFormsApp3.Environment
         public PictureBox Sprite { get; protected set; }
         public bool IsHarvestable { get; protected set; }
 
-        protected EnvironmentObject(string name, Color color, Size size, Point location, bool isHarvestable)
+        protected EnvironmentObject(string name, Size size, Point location, bool isHarvestable)
         {
             Name = name;
             IsHarvestable = isHarvestable;
-            Sprite = new PictureBox
+            Sprite = new PixelPictureBox
             {
                 Name = name,
-                BackColor = color,
+                BackColor = Color.Transparent,
                 Size = size,
                 Location = location,
                 Tag = new KeyValuePair<int, int>(location.X, location.Y)
             };
-            Sprite.BackColor = Color.Transparent;
+            Sprite.SizeMode = PictureBoxSizeMode.StretchImage;
+            
+            
         }
     }
 }
