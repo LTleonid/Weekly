@@ -21,7 +21,7 @@ namespace WinFormsApp3.Dungeons
     }
     public class Dungeon : Form
     {
-        
+
         public static int WorldWidth = 3000;
         public static int WorldHeight = 3000;
 
@@ -44,6 +44,8 @@ namespace WinFormsApp3.Dungeons
             this.KeyPreview = true;
 
         }
+
+
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -74,6 +76,10 @@ namespace WinFormsApp3.Dungeons
         {
 
             Player = player;
+            Player.Camera.CameraX = 0; Player.Camera.CameraY = 0;
+            
+
+
 
         }
     }
