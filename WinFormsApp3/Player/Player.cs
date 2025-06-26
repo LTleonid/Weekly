@@ -110,7 +110,7 @@ namespace WinFormsApp3.Player
             {
                 Dungeons.Dungeon dungeon = new Dungeons.Dungeon(this);
                 Form.ActiveForm.Hide();
-                dungeon.ShowDialog(); // тверь
+                dungeon.ShowDialog  (); // тверь
             }
         }
 
