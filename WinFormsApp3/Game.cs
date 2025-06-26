@@ -161,7 +161,7 @@ namespace WinFormsApp3
         {
 
             Player = new Player.Player(ViewportWidth, ViewportHeight, Controls, gameObjects, "player", 100);
-            Player.inventory.AddItemToInventory(Items.Sword());
+            //Player.inventory.AddItemToInventory(Items.Sword());
             Random rnd = new Random();
             for (int i = 0; i < 20; i++)
             {
