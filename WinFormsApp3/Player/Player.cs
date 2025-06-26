@@ -99,8 +99,8 @@ namespace WinFormsApp3.Player
 
             if (door != null) 
             {
-
-
+                Dungeons.Dungeon dungeon = new Dungeons.Dungeon();
+                dungeon.Show();
             }
         }
 
