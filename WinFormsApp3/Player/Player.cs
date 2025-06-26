@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using WinFormsApp3.Items;
 
 
@@ -89,7 +90,21 @@ namespace WinFormsApp3.Player
             );
         }
 
-        
+        public void OpenDoor(Rectangle ZZZone) 
+        {
+            var door = GameObject.OfType<PictureBox>()
+                     .FirstOrDefault(obj => obj.Name == "Door" && ZZZone.IntersectsWith(obj.Bounds)); // Поиск в зоне действия
+
+            // Нужно запомнить коорды камеры
+
+            if (door != null) 
+            {
+
+
+            }
+        }
+
+
         public void CollectTree(Rectangle Zone)
         {
 
