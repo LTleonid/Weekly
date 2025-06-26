@@ -22,8 +22,8 @@ namespace WinFormsApp3.Dungeons
     public class Dungeon : Form
     {
 
-        public static int WorldWidth = 3000;
-        public static int WorldHeight = 3000;
+        public static int WorldWidth = 1200;
+        public static int WorldHeight = 600;
 
 
         Player.Player Player;
@@ -37,7 +37,7 @@ namespace WinFormsApp3.Dungeons
 
             Init(player);
 
-            this.BackColor = Color.Green;
+            this.BackColor = Color.DarkGray;
 
             this.ClientSize = new Size(Player.Camera.ViewportWidth, Player.Camera.ViewportHeight);
 
@@ -74,13 +74,21 @@ namespace WinFormsApp3.Dungeons
 
         public void Init(Player.Player player)
         {
-
             Player = player;
-            Player.Camera.CameraX = 0; Player.Camera.CameraY = 0;
-            
+            Controls.Add(Player.Sprite);
+            gameObjects.Add(Player.Sprite);
 
+            PictureBox Topchik = new PictureBox();
 
-
+            Topchik.Location = new Point(0, 0);
+            Topchik.Size = new Size(1200, 600);
+            Topchik.Image = Properties.Resources.Топчик;
+            Topchik.SizeMode = PictureBoxSizeMode.StretchImage;
+            Topchik.Name = "Топчик";
+            Topchik.BringToFront();
+            Topchik.Tag = new KeyValuePair<int, int>(Topchik.Location.X, Topchik.Location.Y);
+            Controls.Add(Topchik);
+            gameObjects.Add(Topchik);
         }
     }
 }
