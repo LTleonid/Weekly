@@ -181,7 +181,7 @@ namespace WinFormsApp3
                 PictureBox obj = new PictureBox();
 
                 obj.Location = new Point(rnd.Next(WorldWidth), rnd.Next(WorldHeight));
-                obj.Size = new Size(80, 80);
+                obj.Size = new Size(40, 80);
                 obj.Image = Properties.Resources.Door;
                 obj.SizeMode = PictureBoxSizeMode.StretchImage;
                 obj.Name = "Door";
