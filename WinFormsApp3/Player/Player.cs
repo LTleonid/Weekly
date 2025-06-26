@@ -59,7 +59,7 @@ namespace WinFormsApp3.Player
             GameObject = gameObjects;
             GameObject.Add(Sprite);
 
-            HarvestEvent += CollectTree; 
+            InteractEvent += CollectTree; 
         }
 
         public Item CurrentItem { get; set; } 
@@ -90,28 +90,31 @@ namespace WinFormsApp3.Player
         }
 
         
-        public void CollectTree(List<Control> gameObjects)
+        public void CollectTree(Rectangle Zone)
         {
 
-            Rectangle attackZone = GetAttackZone(Sprite);
 
-            var tree = gameObjects.OfType<PictureBox>()
-                                  .FirstOrDefault(obj => obj.Name == "Tree" && attackZone.IntersectsWith(obj.Bounds));
+            var tree = GameObject.OfType<PictureBox>()
+                                 .FirstOrDefault(obj => obj.Name == "Tree" && Zone.IntersectsWith(obj.Bounds)); // Поиск в зоне действия
 
             if (tree != null)
             {
-                gameObjects.Remove(tree);
+                GameObject.Remove(tree);
                 tree.Dispose();
 
 
                 inventory.AddItemToInventory(new Wood());
             }
         }
-        public delegate void HarvestHandler(List<Control> Objects);
-        public event HarvestHandler? HarvestEvent;
-        public void Harvest()
+
+        // Harvesting event
+        public delegate void InteractHandler(Rectangle Zone);
+        public event InteractHandler? InteractEvent;
+        public void Interact()
         {
-            HarvestEvent?.Invoke(GameObject);
+            Rectangle Zone = GetAttackZone(Sprite);
+
+            InteractEvent?.Invoke(Zone);
 
         }
     }

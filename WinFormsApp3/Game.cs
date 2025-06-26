@@ -139,7 +139,7 @@ namespace WinFormsApp3
             else if (e.KeyCode == Keys.E)
             {
                 // Invoke the HarvestEvent safely using a method in the Player class
-                Player.Harvest();
+                Player.Interact();
             }
 
             base.OnKeyDown(e);
