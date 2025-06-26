@@ -8,17 +8,15 @@ namespace WinFormsApp3.Mobs
 {
     internal class Mob
     {
-        public Mob(int health, string name, int damage)
+        public Mob()
         {
-            this.health = health;
-            this.Name = name;
-            this.damage = damage;
+            
             Random rnd = new Random();
             Sprite = new PictureBox
             {
                 Size = new Size(60, 60),
                 BackColor = Color.Red, // Цвет для моба
-                Name = name,
+                Name = Name,
                 Tag = new KeyValuePair<int, int>(rnd.Next(Game.WorldWidth), Game.WorldHeight), // Начальная позиция+
                 Image = icon
             };

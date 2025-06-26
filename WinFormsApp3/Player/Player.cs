@@ -31,26 +31,33 @@ namespace WinFormsApp3.Player
             get => name;
             set { if (value != Name) { name = value; OnPropertyChanged(); } }
         }
+        private int WWidth;
+        private int WHight;
 
-
+        public Camera Camera { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-
-        List<Control> GameObject; // По ссылке работает
+        
+        internal List<Control> GameObject; // По ссылке работает
         public Inventory inventory;
         public PictureBox Sprite;
-
-        public Player(int viewportWidth, int viewportHeight, Control.ControlCollection controls, List<Control> gameObjects, string name, int health)
+        
+        public Player(int wWidth, int wHight, Control.ControlCollection controls, List<Control> gameObjects, string name, int health)
         {
+            WWidth = wWidth;
+            WHight = wHight;
+            Camera = new Camera(this, wWidth, wHight);
+
             inventory = new Inventory();
             Health = health;
             Name = name;
             Sprite = new PictureBox();
-            Sprite.Location = new Point(viewportWidth / 2, viewportHeight / 2);
+            
+            Sprite.Location = new Point(Camera.ViewportWidth / 2, Camera.ViewportHeight / 2);
             Sprite.Name = "player";
             Sprite.Size = new Size(40, 40);
             Sprite.TabIndex = 1;
