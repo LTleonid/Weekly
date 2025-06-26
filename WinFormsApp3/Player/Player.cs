@@ -60,8 +60,8 @@ namespace WinFormsApp3.Player
             GameObject = gameObjects;
             GameObject.Add(Sprite);
 
-            InteractEvent += CollectTree; 
-            InteractEvent += OpenDoor; 
+            InteractEvent += CollectTree;
+            InteractEvent += OpenDoor;
         }
 
         public Item CurrentItem { get; set; } 
@@ -102,6 +102,7 @@ namespace WinFormsApp3.Player
             {
                 Dungeons.Dungeon dungeon = new Dungeons.Dungeon();
                 dungeon.Show();
+                Game.ActiveForm.Hide();
             }
         }
 
