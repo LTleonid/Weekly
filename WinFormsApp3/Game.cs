@@ -10,8 +10,8 @@ namespace WinFormsApp3
         public bool Mleft;
         public bool Mright;
 
-        protected int WorldWidth = 3000;
-        protected int WorldHeight = 3000;
+        public static int WorldWidth = 3000;
+        public static int WorldHeight = 3000;
         Form2 form = new Form2();
 
         protected int ViewportWidth = 600;
