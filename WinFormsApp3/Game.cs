@@ -95,7 +95,7 @@ namespace WinFormsApp3
                 text += $"{obj.GetHashCode()} | {obj.Name} : {obj.Location} | {obj.Visible}\n";
             }
             text += $"{CameraX}, {CameraY} | {Player.Sprite.Location.X} , {Player.Sprite.Location.Y}\n";
-            foreach (var item in Player.inventory)
+            foreach (var item in Player.inventory.GetItems())
             {
                 text += $"{item.Name} | {item.Quantity}\n";
             }
