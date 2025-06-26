@@ -61,7 +61,7 @@ namespace WinFormsApp3.Player
             GameObject.Add(Sprite);
 
             InteractEvent += CollectTree; 
-            
+            InteractEvent += OpenDoor; 
         }
 
         public Item CurrentItem { get; set; } 
