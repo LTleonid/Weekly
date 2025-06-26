@@ -74,9 +74,9 @@ namespace WinFormsApp3.Dungeons
 
         public void Init(Player.Player player)
         {
-            Player = player;
-            Controls.Add(Player.Sprite);
-            gameObjects.Add(Player.Sprite);
+            Player = new Player.Player(WorldWidth,WorldHeight, Controls,gameObjects, player.Sprite.Name, 100);
+            //Controls.Add(Player.Sprite);
+            //gameObjects.Add(Player.Sprite);
 
             PictureBox Topchik = new PictureBox();
 
