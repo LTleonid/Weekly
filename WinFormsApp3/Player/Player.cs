@@ -108,7 +108,7 @@ namespace WinFormsApp3.Player
 
             if (door != null) 
             {
-                Dungeons.Dungeon dungeon = new Dungeons.Dungeon();
+                Dungeons.Dungeon dungeon = new Dungeons.Dungeon(this);
                 Form.ActiveForm.Hide();
                 dungeon.ShowDialog(); // тверь
             }

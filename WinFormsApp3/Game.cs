@@ -7,7 +7,7 @@ namespace WinFormsApp3
         
         public static int WorldWidth = 3000;
         public static int WorldHeight = 3000;
-        Form2 form = new Form2();
+        
 
         Player.Player Player;
        
@@ -91,25 +91,11 @@ namespace WinFormsApp3
                 gameObjects.Add(obj);
             }
 
-            form.Show();
+            
 
         }
     }
 
-    public class Form2 : Form
-    {
-        public Label label;
-        public Form2()
-        {
-            this.ClientSize = new Size(400, 600);
-            label = new Label();
-            label.Location = new Point(10, 0);
-            label.Text = " 123";
-            label.Width = 400;
-            label.Height = 600;
-            Controls.Add(label);
-
-        }
-    }
+    
 
 }
