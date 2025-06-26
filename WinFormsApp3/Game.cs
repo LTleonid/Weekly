@@ -91,7 +91,19 @@ namespace WinFormsApp3
                 gameObjects.Add(obj);
             }
 
-            
+            PictureBox Door = new PictureBox();
+
+            Door.Location = new Point(100, 100);
+            Door.Size = new Size(40, 80);
+            Door.Image = Properties.Resources.Door;
+            Door.SizeMode = PictureBoxSizeMode.StretchImage;
+            Door.Name = "Door";
+            Door.BringToFront();
+            Door.Tag = new KeyValuePair<int, int>(Door.Location.X, Door.Location.Y);
+            Controls.Add(Door);
+            gameObjects.Add(Door);
+
+
 
         }
     }

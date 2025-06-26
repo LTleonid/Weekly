@@ -148,4 +148,7 @@
   <data name="Wood_item" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\WorldTexture\Wood_item.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Топчик" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\i (4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
