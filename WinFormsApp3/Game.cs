@@ -176,6 +176,21 @@ namespace WinFormsApp3
                 gameObjects.Add(obj);
             }
 
+            for (int i = 0; i < 5; i++)
+            {
+                PictureBox obj = new PictureBox();
+
+                obj.Location = new Point(rnd.Next(WorldWidth), rnd.Next(WorldHeight));
+                obj.Size = new Size(80, 80);
+                obj.Image = Properties.Resources.;
+                obj.SizeMode = PictureBoxSizeMode.StretchImage;
+                obj.Name = "Tree";
+                obj.BringToFront();
+                obj.Tag = new KeyValuePair<int, int>(obj.Location.X, obj.Location.Y);
+                Controls.Add(obj);
+                gameObjects.Add(obj);
+            }
+
             form.Show();
 
         }
