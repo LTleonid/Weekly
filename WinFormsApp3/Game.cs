@@ -182,9 +182,9 @@ namespace WinFormsApp3
 
                 obj.Location = new Point(rnd.Next(WorldWidth), rnd.Next(WorldHeight));
                 obj.Size = new Size(80, 80);
-                obj.Image = Properties.Resources.;
+                obj.Image = Properties.Resources.Door;
                 obj.SizeMode = PictureBoxSizeMode.StretchImage;
-                obj.Name = "Tree";
+                obj.Name = "Door";
                 obj.BringToFront();
                 obj.Tag = new KeyValuePair<int, int>(obj.Location.X, obj.Location.Y);
                 Controls.Add(obj);
