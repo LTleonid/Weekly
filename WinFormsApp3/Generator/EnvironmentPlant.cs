@@ -26,12 +26,8 @@ namespace WinFormsApp3.Generator
         {
             if (IsHarvestable)
             {
-                
+
                 HarvestEvent?.Invoke();
-            }
-            else
-            {
-                throw new InvalidOperationException("Это растение нельзя собрать.");
             }
         }
     }

@@ -9,7 +9,7 @@ namespace WinFormsApp3
         public static int WorldHeight = 3000;
         
 
-        Player.Player Player;
+        public static Player.Player Player;
        
 
         protected List<Control> gameObjects = new List<Control>();
@@ -20,7 +20,7 @@ namespace WinFormsApp3
             InitializeComponent();
             Init();
 
-            this.BackColor = Color.Green;
+            this.BackColor = Color.Gray;
             
             this.ClientSize = new Size(Player.Camera.ViewportWidth, Player.Camera.ViewportHeight);
 
@@ -91,23 +91,34 @@ namespace WinFormsApp3
                 gameObjects.Add(obj);
             }
 
-            PictureBox Door = new PictureBox();
+            //Mobs.Mob zombie = new Mobs.Mob(100,"zombie", 10, 100,100, Player);
+            //gameObjects.Add(zombie.Sprite);
+            //Controls.Add(zombie.Sprite);
+            Form2 form2 = new();
+            foreach(Control control in gameObjects)
+            {
+                form2.label.Text += control.Name + " | " + control.Tag.ToString() + "\n";
+            }
+            form2.Show();
+        }
+    }
 
-            Door.Location = new Point(100, 100);
-            Door.Size = new Size(40, 80);
-            Door.Image = Properties.Resources.Door;
-            Door.SizeMode = PictureBoxSizeMode.StretchImage;
-            Door.Name = "Door";
-            Door.BringToFront();
-            Door.Tag = new KeyValuePair<int, int>(Door.Location.X, Door.Location.Y);
-            Controls.Add(Door);
-            gameObjects.Add(Door);
-
-
+    public class Form2 : Form
+    {
+        public Label label;
+        public Form2()
+        {
+            this.ClientSize = new Size(400, 600);
+            label = new Label();
+            label.Location = new Point(10, 0);
+            label.Text = "";
+            label.Width = 400;
+            label.Height = 600;
+            Controls.Add(label);
 
         }
     }
 
-    
+
 
 }

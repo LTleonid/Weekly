@@ -11,7 +11,7 @@ namespace WinFormsApp3.Player
     {
 
         int health;
-        protected int Health
+        public int Health
         {
             get => health;
             set

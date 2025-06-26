@@ -65,7 +65,7 @@ namespace WinFormsApp3.Player
             UpdateObjectsPosition();
         }
 
-        private void UpdateObjectsPosition()
+        public void UpdateObjectsPosition()
         {
             
             foreach (var obj in Player.GameObject)
