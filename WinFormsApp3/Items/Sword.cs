@@ -56,11 +56,10 @@ namespace WinFormsApp3.Items
                 mob.Sprite.Left += Math.Sign(dx) * 20;
                 mob.Sprite.Top += Math.Sign(dy) * 20;
 
-                //Console.WriteLine($"Моб {mob.name} получил {damage} урона. Осталось HP: {mob.health}");
+               
                 return damage;
             }
 
-            Console.WriteLine("Нет моба перед игроком.");
             return 0;
         }
 

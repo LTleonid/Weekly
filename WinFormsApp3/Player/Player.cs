@@ -61,6 +61,7 @@ namespace WinFormsApp3.Player
             GameObject.Add(Sprite);
 
             InteractEvent += CollectTree; 
+            
         }
 
         public Item CurrentItem { get; set; } 

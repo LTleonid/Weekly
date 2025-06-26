@@ -14,8 +14,8 @@ namespace WinFormsApp3
         public static int WorldHeight = 3000;
         Form2 form = new Form2();
 
-        protected int ViewportWidth = 600;
-        protected int ViewportHeight = 600;
+        public static int ViewportWidth = 600;
+        public static int ViewportHeight = 600;
 
         public int CameraX = 0;
         public int CameraY = 0;
@@ -140,7 +140,7 @@ namespace WinFormsApp3
             else if (e.KeyCode == Keys.A) Mleft = true;
             else if (e.KeyCode == Keys.E)
             {
-                // Invoke the HarvestEvent safely using a method in the Player class
+
                 Player.Interact();
             }
 
