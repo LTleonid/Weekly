@@ -1,4 +1,5 @@
 using System.Runtime.Remoting;
+using WinFormsApp3.Environment;
 
 namespace WinFormsApp3
 {
@@ -61,35 +62,8 @@ namespace WinFormsApp3
             Player = new Player.Player(WorldWidth, WorldHeight, Controls, gameObjects, "player", 100);
             //Player.inventory.AddItemToInventory(Items.Sword());
             Random rnd = new Random();
-            for (int i = 0; i < 20; i++)
-            {
-                PictureBox obj = new PictureBox();
-
-                obj.Location = new Point(rnd.Next(WorldWidth), rnd.Next(WorldHeight));
-                obj.Size = new Size(80, 80);
-                obj.Image = Properties.Resources.Tree;
-                obj.SizeMode = PictureBoxSizeMode.StretchImage;
-                obj.Name = "Tree";
-                obj.BringToFront();
-                obj.Tag = new KeyValuePair<int, int>(obj.Location.X, obj.Location.Y);
-                Controls.Add(obj);
-                gameObjects.Add(obj);
-            }
-
-            for (int i = 0; i < 5; i++)
-            {
-                PictureBox obj = new PictureBox();
-
-                obj.Location = new Point(rnd.Next(WorldWidth), rnd.Next(WorldHeight));
-                obj.Size = new Size(40, 80);
-                obj.Image = Properties.Resources.Door;
-                obj.SizeMode = PictureBoxSizeMode.StretchImage;
-                obj.Name = "Door";
-                obj.BringToFront();
-                obj.Tag = new KeyValuePair<int, int>(obj.Location.X, obj.Location.Y);
-                Controls.Add(obj);
-                gameObjects.Add(obj);
-            }
+            EnvironmentGenerator generator = new();
+            generator.Generate(200,WorldWidth, WorldHeight, Controls, gameObjects);  
 
             //Mobs.Mob zombie = new Mobs.Mob(100,"zombie", 10, 100,100, Player);
             //gameObjects.Add(zombie.Sprite);

@@ -21,6 +21,7 @@ namespace WinFormsApp3.Environment
                 Location = location,
                 Tag = new KeyValuePair<int, int>(location.X, location.Y)
             };
+            Sprite.BackColor = Color.Transparent;
         }
     }
 }

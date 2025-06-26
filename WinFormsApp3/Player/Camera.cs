@@ -82,7 +82,7 @@ namespace WinFormsApp3.Player
                     if (obj.Name != "player")
                     {
                         obj.Location = new Point(screenX, screenY);
-
+                        obj.Enabled = true;
                         obj.Visible = true;
                     }
 
@@ -91,6 +91,7 @@ namespace WinFormsApp3.Player
                 {
                     // obj.Location = new Point(obj.Location.X - CameraX, obj.Location.Y - CameraY);
                     obj.Visible = false;
+                    obj.Enabled = false;
                 }
                
             }

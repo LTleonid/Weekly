@@ -7,7 +7,7 @@ namespace WinFormsApp3.Environment
         public Stone(Point location)
             : base("Stone", Color.Gray, new Size(50, 50), location, true)
         {
-            // Можно добавить картинку: Sprite.Image = Properties.Resources.Stone;
+            Sprite.Image = Properties.Resources.Rock;
         }
     }
 }

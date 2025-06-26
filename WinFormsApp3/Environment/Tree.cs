@@ -5,9 +5,10 @@ namespace WinFormsApp3.Environment
     public class Tree : EnvironmentObject
     {
         public Tree(Point location)
-            : base("Tree", Color.SaddleBrown, new Size(80, 80), location, true)
+            : base("Tree", Color.Transparent, new Size(200, 200), location, true)
         {
-            // Можно добавить картинку: Sprite.Image = Properties.Resources.Tree;
+            Sprite.Image = Properties.Resources.Tree;
+            
         }
     }
 }
