@@ -109,7 +109,7 @@ namespace WinFormsApp3.Player
         public void CollectTree(Rectangle Zone)
         {
 
-
+            
             var tree = GameObject.OfType<PictureBox>()
                                  .FirstOrDefault(obj => obj.Name == "Tree" && Zone.IntersectsWith(obj.Bounds)); // Поиск в зоне действия
 

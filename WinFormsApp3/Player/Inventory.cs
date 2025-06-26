@@ -17,7 +17,7 @@ namespace WinFormsApp3.Player
         public List<Item> GetItems()
         {
             return Items;
-        }
+        }       
         public void AddItemToInventory(Item item)
         {
             if (item != null)

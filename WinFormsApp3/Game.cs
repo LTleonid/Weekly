@@ -138,7 +138,7 @@ namespace WinFormsApp3
             else if (e.KeyCode == Keys.W) Mup = true;
             else if (e.KeyCode == Keys.S) Mdown = true;
             else if (e.KeyCode == Keys.A) Mleft = true;
-            else if (e.KeyCode == Keys.E)
+            else if (e.KeyCode == Keys.E)   
             {
 
                 Player.Interact();
@@ -161,7 +161,7 @@ namespace WinFormsApp3
         {
 
             Player = new Player.Player(ViewportWidth, ViewportHeight, Controls, gameObjects, "player", 100);
-
+            Player.inventory.AddItemToInventory(Items.Sword());
             Random rnd = new Random();
             for (int i = 0; i < 20; i++)
             {
