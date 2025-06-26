@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using WinFormsApp3.Items;
@@ -101,8 +102,9 @@ namespace WinFormsApp3.Player
             if (door != null) 
             {
                 Dungeons.Dungeon dungeon = new Dungeons.Dungeon();
-                dungeon.Show();
-                Game.ActiveForm.Hide();
+                Form.ActiveForm.Hide();
+                dungeon.ShowDialog();
+                
             }
         }
 
