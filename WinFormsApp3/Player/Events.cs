@@ -8,5 +8,6 @@ namespace WinFormsApp3.Player
 {
     internal class Events
     {
+
     }
 }
