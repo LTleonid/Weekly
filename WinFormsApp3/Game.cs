@@ -12,7 +12,7 @@ namespace WinFormsApp3
         
 
         public static Player.Player Player;
-       
+        Player.InventoryUI invUI = new();
 
         protected List<Control> gameObjects = new List<Control>();
 
@@ -23,12 +23,12 @@ namespace WinFormsApp3
             Init();
 
             this.BackColor = Color.Green;
-            
+
+           
             
             this.ClientSize = new Size(Player.Camera.ViewportWidth, Player.Camera.ViewportHeight);
-
             this.KeyPreview = true;
-            
+
         }
 
         
@@ -64,7 +64,7 @@ namespace WinFormsApp3
             
             Player = new Player.Player(WorldWidth, WorldHeight, Controls, gameObjects, "player", 100);
             //Player.inventory.AddItemToInventory(Items.Sword());
-            Random rnd = new Random();
+            
             EnvironmentGenerator generator = new();
             generator.Generate(200,WorldWidth, WorldHeight, Controls, gameObjects);  
 
@@ -77,7 +77,7 @@ namespace WinFormsApp3
                 form2.label.Text += control.Name + " | " + control.Tag.ToString() + "\n";
             }
             form2.Show();
-            PictureBox floor = new PictureBox();
+            PixelPictureBox floor = new PixelPictureBox();
             floor.Size = new Size(WorldWidth, WorldHeight);
             floor.BackColor = Color.Green;
             floor.BackgroundImage = Properties.Resources.Grass;
@@ -86,6 +86,8 @@ namespace WinFormsApp3
             floor.Tag = new KeyValuePair<int, int>(floor.Location.X, floor.Location.Y);
             Controls.Add(floor);
             gameObjects.Add(floor);
+            invUI.Show();
+
         }
     }
 

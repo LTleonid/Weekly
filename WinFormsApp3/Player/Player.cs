@@ -70,6 +70,7 @@ namespace WinFormsApp3.Player
 
             InteractEvent += CollectTree;
             InteractEvent += OpenDoor;
+            
         }
 
         public Item CurrentItem { get; set; } 
@@ -84,7 +85,7 @@ namespace WinFormsApp3.Player
                     inventory.RemoveItemFromInventory(CurrentItem);
                 }
             }
-
+        
         }
 
         public Rectangle GetAttackZone(PictureBox playerSprite)

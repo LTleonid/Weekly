@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Remove=".gitattributes" />
     <None Remove=".gitignore" />
+    <None Remove="Resources\GrassBack.png.png" />
   </ItemGroup>
 
   <ItemGroup>

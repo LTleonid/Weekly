@@ -19,7 +19,8 @@ namespace WinFormsApp3.Environment
                 BackColor = Color.Transparent,
                 Size = size,
                 Location = location,
-                Tag = new KeyValuePair<int, int>(location.X, location.Y)
+                Tag = new KeyValuePair<int, int>(location.X, location.Y),
+                
             };
             Sprite.SizeMode = PictureBoxSizeMode.StretchImage;
             

@@ -14,9 +14,9 @@ namespace WinFormsApp3
 
             public Tools(Control.ControlCollection controls, List<Control> gameObjects) { Controls = controls; GameObjects = gameObjects; }
 
-            public PictureBox AddPicture(int Lx, int Ly, int Sx, int Sy, string Name, Image image)
+            public PixelPictureBox AddPicture(int Lx, int Ly, int Sx, int Sy, string Name, Image image)
             {
-                PictureBox obj = new PictureBox();
+                PixelPictureBox obj = new PixelPictureBox();
 
                 obj.Location = new Point(Lx, Ly);
                 obj.Size = new Size(Sx, Sy);

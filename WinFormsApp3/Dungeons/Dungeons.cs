@@ -82,7 +82,7 @@ namespace WinFormsApp3.Dungeons
 
             Topchik.Location = new Point(0, 0);
             Topchik.Size = new Size(20, 20);
-            Topchik.Image = Properties.Resources.Топчик;
+            //Topchik.Image = Properties.Resources.Топчик;
             Topchik.SizeMode = PictureBoxSizeMode.StretchImage;
             Topchik.Name = "Топчик";
             Topchik.BringToFront();
