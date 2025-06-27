@@ -1,4 +1,5 @@
 using System.Runtime.Remoting;
+using System.Windows.Forms.VisualStyles;
 using WinFormsApp3.Environment;
 
 namespace WinFormsApp3
@@ -21,7 +22,8 @@ namespace WinFormsApp3
             InitializeComponent();
             Init();
 
-            this.BackColor = Color.Gray;
+            this.BackColor = Color.Green;
+            
             
             this.ClientSize = new Size(Player.Camera.ViewportWidth, Player.Camera.ViewportHeight);
 
@@ -58,7 +60,8 @@ namespace WinFormsApp3
 
         public void Init()
         {
-
+            
+            
             Player = new Player.Player(WorldWidth, WorldHeight, Controls, gameObjects, "player", 100);
             //Player.inventory.AddItemToInventory(Items.Sword());
             Random rnd = new Random();
@@ -74,6 +77,15 @@ namespace WinFormsApp3
                 form2.label.Text += control.Name + " | " + control.Tag.ToString() + "\n";
             }
             form2.Show();
+            PictureBox floor = new PictureBox();
+            floor.Size = new Size(WorldWidth, WorldHeight);
+            floor.BackColor = Color.Green;
+            floor.BackgroundImage = Properties.Resources.Grass;
+            floor.Location = new Point(0, 0);
+            floor.Name = "floor";
+            floor.Tag = new KeyValuePair<int, int>(floor.Location.X, floor.Location.Y);
+            Controls.Add(floor);
+            gameObjects.Add(floor);
         }
     }
 
