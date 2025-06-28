@@ -5,6 +5,7 @@ namespace WinFormsApp3.Environment
 {
     public abstract class EnvironmentObject
     {
+        public static Random rnd = new Random();
         public string Name { get; protected set; }
         public PictureBox Sprite { get; protected set; }
         public bool IsHarvestable { get; protected set; }

@@ -27,16 +27,19 @@ namespace WinFormsApp3.Player
         private int choice;
         private PointF p;
         Dictionary<int, Image> inventoryImages;
-        Dictionary<int, Image> itemsImages;
+        Dictionary<string, Image> itemsImages;
 
         public InventoryUI()
         {
 
             inv = new Inventory();
             
-            itemsImages = new Dictionary<int, Image>
+            itemsImages = new Dictionary<string, Image>
             {
-                {0, Properties.Resources.Wood_item }
+                {"Wood", Properties.Resources.Wood_item },
+                {"Stone", Properties.Resources.Rock_item },
+                {"Berry", Properties.Resources.Berry_item }
+
 
             };
 
@@ -76,13 +79,13 @@ namespace WinFormsApp3.Player
                     BackColor = Color.Transparent,
                     BorderStyle = BorderStyle.FixedSingle,
                     Name = "InventorySlot" + i,
-                    Image = inventoryImages[i + 1]
+                    Image = inventoryImages[0]
 
 
                 };
                 inventorySlots[i].Location = new Point(i * inventorySlots[i].Size.Width, 0);
                 inventorySlots[i].SizeMode = PictureBoxSizeMode.StretchImage;
-                //Controls.Add(inventorySlots[i]);
+                Controls.Add(inventorySlots[i]);
             }
         }
         public void UpdateInventory(PaintEventArgs e)

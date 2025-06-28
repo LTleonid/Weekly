@@ -70,6 +70,8 @@ namespace WinFormsApp3.Player
             
             foreach (var obj in Player.GameObject)
             {
+                if (obj == null) continue;
+
                 KeyValuePair<int, int>? coords = (KeyValuePair<int, int>)obj.Tag;
 
                 int screenX = coords.Value.Value - CameraX;

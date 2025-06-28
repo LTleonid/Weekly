@@ -47,6 +47,10 @@ namespace WinFormsApp3
             }
 
             base.OnKeyDown(e);
+            foreach (Control control in gameObjects)
+            {
+                form2.label.Text += control.Name + " | " + control.Tag.ToString() + "\n";
+            }
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
@@ -73,10 +77,7 @@ namespace WinFormsApp3
             //gameObjects.Add(zombie.Sprite);
             //Controls.Add(zombie.Sprite);
             Form2 form2 = new();
-            foreach(Control control in gameObjects)
-            {
-                form2.label.Text += control.Name + " | " + control.Tag.ToString() + "\n";
-            }
+            
             form2.Show();
             PixelPictureBox floor = new PixelPictureBox();
             floor.Size = new Size(WorldWidth+600, WorldHeight+600);
