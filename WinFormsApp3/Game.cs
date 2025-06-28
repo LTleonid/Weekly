@@ -2,6 +2,8 @@ using System.Runtime.Remoting;
 using System.Windows.Forms.VisualStyles;
 using System.Drawing;
 using WinFormsApp3.Environment;
+using WinFormsApp3.Player;
+using System.Runtime.CompilerServices;
 
 namespace WinFormsApp3
 {
@@ -10,16 +12,19 @@ namespace WinFormsApp3
         PaintEventArgs e1;
         public static int WorldWidth = 3000;
         public static int WorldHeight = 3000;
-        
+        public static bool sounds { get; set; }
 
         public static Player.Player Player;
-        Player.InventoryUI invUI = new();
+        Player.InventoryUI invUI;
 
         protected List<Control> gameObjects = new List<Control>();
-
-        public Game()
+        public static void set_Sounds(bool flag)
         {
-            
+            sounds = flag;
+        }
+        public Game(bool sounds)
+        {
+            set_Sounds(sounds);
             InitializeComponent();
             Init();
 
@@ -44,13 +49,11 @@ namespace WinFormsApp3
             {
 
                 Player.Interact(e1);
+                invUI.UpdateInventory();
             }
 
             base.OnKeyDown(e);
-            foreach (Control control in gameObjects)
-            {
-                form2.label.Text += control.Name + " | " + control.Tag.ToString() + "\n";
-            }
+            
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
@@ -65,11 +68,11 @@ namespace WinFormsApp3
 
         public void Init()
         {
-            
-            
+
+            this.DoubleBuffered = true;
             Player = new Player.Player(WorldWidth, WorldHeight, Controls, gameObjects, "player", 100);
             //Player.inventory.AddItemToInventory(Items.Sword());
-            
+            invUI = new(Player.inventory);
             EnvironmentGenerator generator = new();
             generator.Generate(200,WorldWidth, WorldHeight, Controls, gameObjects);  
 
@@ -89,7 +92,7 @@ namespace WinFormsApp3
             Controls.Add(floor);
             gameObjects.Add(floor);
             invUI.Show();
-
+            
         }
     }
 

@@ -9,8 +9,9 @@ namespace WinFormsApp3.Environment
         public string Name { get; protected set; }
         public PictureBox Sprite { get; protected set; }
         public bool IsHarvestable { get; protected set; }
-
-        public static System.Media.SoundPlayer HarvestSound { get; set; } = new System.Media.SoundPlayer();
+        delegate void HarvestDelegate();
+        event HarvestDelegate HarvestEvent;
+        public System.Media.SoundPlayer HarvestSound { get; set; } = new System.Media.SoundPlayer();
         protected EnvironmentObject(string name, Size size, Point location, bool isHarvestable)
         {
         
@@ -26,7 +27,18 @@ namespace WinFormsApp3.Environment
                 
             };
             Sprite.SizeMode = PictureBoxSizeMode.StretchImage;
-            
+            //HarvestEvent += Harvest; 
+
+        }
+        public virtual void Harvest()
+        {
+            if (IsHarvestable)
+            {
+                HarvestEvent?.Invoke();
+                if (Game.sounds) HarvestSound.Play();
+                Sprite.Dispose(); 
+                
+            }
             
         }
     }

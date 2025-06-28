@@ -103,6 +103,16 @@ namespace WinFormsApp3.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Dungeon_Sprite {
+            get {
+                object obj = ResourceManager.GetObject("Dungeon_Sprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Eight {
             get {
                 object obj = ResourceManager.GetObject("Eight", resourceCulture);
@@ -337,6 +347,15 @@ namespace WinFormsApp3.Properties {
             get {
                 object obj = ResourceManager.GetObject("Wood_item", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        public static System.IO.UnmanagedMemoryStream wood_Sounds {
+            get {
+                return ResourceManager.GetStream("wood_Sounds", resourceCulture);
             }
         }
     }

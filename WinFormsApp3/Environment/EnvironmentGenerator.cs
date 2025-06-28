@@ -14,14 +14,12 @@ namespace WinFormsApp3.Environment
             var objects = new List<EnvironmentObject>();
             for (int i = 0; i < count; i++)
             {
-                int type = random.Next(4);
+                int type = random.Next(2);
                 Point location = new Point(random.Next(0, width - 80), random.Next(0, height - 80));
                 EnvironmentObject obj = type switch
                 {
                     0 => new Tree(location),
-                    1 => new Grass(location),
-                    2 => new Flower(location),
-                    3 => new Stone(location),
+                    1 => new Stone(location),
                     _ => new Tree(location)
                 };
                 controls.Add(obj.Sprite);

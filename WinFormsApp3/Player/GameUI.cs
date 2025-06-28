@@ -25,15 +25,16 @@ namespace WinFormsApp3.Player
 
         private Inventory inv;
         private int choice;
-        private PointF p;
+        private Point p;
         Dictionary<int, Image> inventoryImages;
         Dictionary<string, Image> itemsImages;
-
-        public InventoryUI()
+        PixelPictureBox[] inventorySlots;
+        List<Control> inventoryItems = new List<Control>();
+        public InventoryUI(Inventory inv)
         {
 
-            inv = new Inventory();
-            
+            this.inv = inv;
+            inventoryItems = new List<Control>();   
             itemsImages = new Dictionary<string, Image>
             {
                 {"Wood", Properties.Resources.Wood_item },
@@ -69,7 +70,7 @@ namespace WinFormsApp3.Player
             this.MaximumSize = new Size(66 * 9 - 3, 100);
             this.MinimumSize = new Size(66 * 9 - 3, 100);
             this.Text = "Инвентарь";
-            PixelPictureBox[] inventorySlots = new PixelPictureBox[9];
+            inventorySlots = new PixelPictureBox[9];
             for (int i = 0; i < inventorySlots.Length; i++)
             {
                 inventorySlots[i] = new PixelPictureBox
@@ -87,17 +88,31 @@ namespace WinFormsApp3.Player
                 inventorySlots[i].SizeMode = PictureBoxSizeMode.StretchImage;
                 Controls.Add(inventorySlots[i]);
             }
+            inv.AddItemToInventory(new Items.Item { Name = "Wood" });
         }
-        public void UpdateInventory(PaintEventArgs e)
+        public void UpdateInventory()
         {
+            
             for (int i = 0; i < inv.Length(); i++)
             {
                 if (inv.GetItems()[i].Name == "Wood")
                 {
-                    float temp = i * 64;
-                    p = new PointF(temp, 0F);
-                    base.OnPaint(e);
-                    e.Graphics.DrawImage(Properties.Resources.Wood_item, p);
+                    
+                    
+                    //base.OnPaint(e);
+                    PixelPictureBox item = new PixelPictureBox
+                    {
+                        Size = new Size(32, 32),
+                        BackColor = Color.Transparent,
+                        BorderStyle = BorderStyle.FixedSingle,
+                        Name = "InventorySlot" + i,
+                        Image = itemsImages["Wood"],
+                        Location = new Point(inventorySlots[i].Location.X / 2, inventorySlots[i].Location.Y / 2),
+                        SizeMode = PictureBoxSizeMode.StretchImage
+                    };
+
+                    inventoryItems.Add(item);
+                    Controls.Add(item);
                 }
             }
             

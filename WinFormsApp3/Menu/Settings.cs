@@ -12,31 +12,38 @@ namespace Menu
 {
     public partial class Settings : Form
     {
+        public bool Sounds = true;
         private bool show;
-        public Settings()
+        
+        public Settings(bool sounds)
         {
-            show = true;
+            Sounds = sounds;
+            if (sounds) show = true;
+            else show = false;
             InitializeComponent();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Menu menu = new Menu();
+            if (Sounds) show = true;
+            Menu menu = new Menu(Sounds);
             menu.ShowDialog();
             this.Close();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            if (show == false)
+            if (show == false )
             {
+                Sounds = true;
                 show = true;
                 pictureBox3.Visible = true;
             }
-            else if (show == true)
+            else if (show == true )
             {
                 show = false;
+                Sounds = false;
                 pictureBox3.Visible = false;
             }
         }

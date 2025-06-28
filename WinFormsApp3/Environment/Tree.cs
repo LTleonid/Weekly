@@ -9,6 +9,7 @@ namespace WinFormsApp3.Environment
         {
             Sprite.BackgroundImage = null ;
             Sprite.Image = Properties.Resources.Tree;
+            base.HarvestSound = new System.Media.SoundPlayer(Properties.Resources.wood_Sounds);
         }
     }
 }

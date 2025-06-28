@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Media;
 using System.Runtime.CompilerServices;
 using System.Security.Policy;
 using WinFormsApp3.Items;
@@ -49,7 +50,7 @@ namespace WinFormsApp3.Player
         
         public Player(int wWidth, int wHight, Control.ControlCollection controls, List<Control> gameObjects, string name, int health)
         {
-            inventoryUI = new InventoryUI();
+            
             WWidth = wWidth;
             WHight = wHight;
             Camera = new Camera(this, wWidth, wHight);
@@ -128,10 +129,11 @@ namespace WinFormsApp3.Player
             {
                 GameObject.Remove(tree);
                 tree.Dispose();
-
+                SoundPlayer soundPlayer = new SoundPlayer(Properties.Resources.wood_Sounds);
+                if (Game.sounds) soundPlayer.Play();
 
                 inventory.AddItemToInventory(new Wood());
-                inventoryUI.UpdateInventory(e);
+                
             }
         }
 

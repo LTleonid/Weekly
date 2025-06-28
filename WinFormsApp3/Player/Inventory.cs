@@ -36,6 +36,7 @@ namespace WinFormsApp3.Player
                     Items.Add(item);
                 }
             }
+            
         }
         public void RemoveItemFromInventory(Item item)
         {
