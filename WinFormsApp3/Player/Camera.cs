@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -49,6 +50,9 @@ namespace WinFormsApp3.Player
             cameraTimer.Interval = (1000 / fps);
             cameraTimer.Tick += CameraTimer_Tick;
             cameraTimer.Start();
+
+            soundPlayer.LoadTimeout = 100;
+
         }
         private void CameraTimer_Tick(object sender, EventArgs e)
         {
@@ -100,8 +104,9 @@ namespace WinFormsApp3.Player
             
 
         }
-
-
+        int timer;
+        bool leg = false;
+        SoundPlayer soundPlayer = new();
         private void MovementTimer_Tick(object sender, EventArgs e)
         {
 
@@ -114,11 +119,24 @@ namespace WinFormsApp3.Player
 
             if (deltaX != 0 || deltaY != 0)
             {
-
+                timer += 1;
+                if (timer == 50)
+                {
+                    timer = 0;
+                    soundPlayer.Stream = Properties.Resources.sand1;
+                    soundPlayer.Play();
+                    leg = false;
+                }
+                else if (timer == 0)
+                {
+                    soundPlayer.Stream = Properties.Resources.sand2;
+                    soundPlayer.Play();
+                    leg = true;
+                }
                 var worldPos = (KeyValuePair<int, int>)Player.Sprite.Tag;
                 int newX = worldPos.Value + deltaX;
                 int newY = worldPos.Key + deltaY;
-
+                
                 newX = Math.Max(0, Math.Min(newX, WorldWidth - Player.Sprite.Width));
                 newY = Math.Max(0, Math.Min(newY, WorldHeight - Player.Sprite.Height));
 
