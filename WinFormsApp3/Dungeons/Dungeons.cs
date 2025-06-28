@@ -28,12 +28,14 @@ namespace WinFormsApp3.Dungeons
 
         Player.Player Player;
 
+        Tools tools;
 
         protected List<Control> gameObjects = new List<Control>();
 
         public Dungeon(Player.Player player)
         {
 
+            tools = new Tools(Controls, gameObjects);
 
             Init(player);
 
@@ -77,18 +79,7 @@ namespace WinFormsApp3.Dungeons
             Player = new Player.Player(WorldWidth,WorldHeight, Controls,gameObjects, player.Sprite.Name, 100);
             //Controls.Add(Player.Sprite);
             //gameObjects.Add(Player.Sprite);
-
-            PictureBox Topchik = new PictureBox();
-
-            Topchik.Location = new Point(0, 0);
-            Topchik.Size = new Size(20, 20);
-            //Topchik.Image = Properties.Resources.Топчик;
-            Topchik.SizeMode = PictureBoxSizeMode.StretchImage;
-            Topchik.Name = "Топчик";
-            Topchik.BringToFront();
-            Topchik.Tag = new KeyValuePair<int, int>(Topchik.Location.X, Topchik.Location.Y);
-            Controls.Add(Topchik);
-            gameObjects.Add(Topchik);
+            tools.AddPicture(0, 0, 600, 900, "Background", Properties.Resources.Grass);
         }
     }
 }
