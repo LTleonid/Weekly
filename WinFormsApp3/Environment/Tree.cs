@@ -9,7 +9,6 @@ namespace WinFormsApp3.Environment
         {
             Sprite.BackgroundImage = null ;
             Sprite.Image = Properties.Resources.Tree;
-            
         }
     }
 }

@@ -25,7 +25,6 @@ namespace WinFormsApp3
        
         protected override void OnPaint(PaintEventArgs pe)
         {
-
             pe.Graphics.InterpolationMode = interpolationMode;
             //pe.Graphics.DrawImage(this.Image, new System.Drawing.Rectangle(0, 0, this.Width, this.Height));
             base.OnPaint(pe);

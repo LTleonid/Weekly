@@ -21,7 +21,7 @@ namespace WinFormsApp3.Dungeons
     }
     public class Dungeon : Form
     {
-
+        PaintEventArgs e1;
         public static int WorldWidth = 1200;
         public static int WorldHeight = 600;
 
@@ -56,7 +56,7 @@ namespace WinFormsApp3.Dungeons
             else if (e.KeyCode == Keys.E)
             {
 
-                Player.Interact();
+                Player.Interact(e1);
             }
 
             base.OnKeyDown(e);

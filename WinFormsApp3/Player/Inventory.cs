@@ -14,6 +14,10 @@ namespace WinFormsApp3.Player
         {
             Items = [];
         }
+        public int Length()
+        {
+            return Items.Count;
+        }
         public List<Item> GetItems()
         {
             return Items;

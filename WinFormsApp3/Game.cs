@@ -1,12 +1,13 @@
 using System.Runtime.Remoting;
 using System.Windows.Forms.VisualStyles;
+using System.Drawing;
 using WinFormsApp3.Environment;
 
 namespace WinFormsApp3
 {
     public partial class Game : Form
     {
-        
+        PaintEventArgs e1;
         public static int WorldWidth = 3000;
         public static int WorldHeight = 3000;
         
@@ -42,7 +43,7 @@ namespace WinFormsApp3
             else if (e.KeyCode == Keys.E)   
             {
 
-                Player.Interact();
+                Player.Interact(e1);
             }
 
             base.OnKeyDown(e);
@@ -78,10 +79,10 @@ namespace WinFormsApp3
             }
             form2.Show();
             PixelPictureBox floor = new PixelPictureBox();
-            floor.Size = new Size(WorldWidth, WorldHeight);
+            floor.Size = new Size(WorldWidth+600, WorldHeight+600);
             floor.BackColor = Color.Green;
             floor.BackgroundImage = Properties.Resources.Grass;
-            floor.Location = new Point(0, 0);
+            floor.Location = new Point(-300, -300);
             floor.Name = "floor";
             floor.Tag = new KeyValuePair<int, int>(floor.Location.X, floor.Location.Y);
             Controls.Add(floor);
@@ -106,7 +107,4 @@ namespace WinFormsApp3
 
         }
     }
-
-
-
 }

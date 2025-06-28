@@ -9,8 +9,9 @@ namespace WinFormsApp3.Player
 {
     public class Player : INotifyPropertyChanged
     {
-
         int health;
+        InventoryUI inventoryUI;
+
         public int Health
         {
             get => health;
@@ -48,6 +49,7 @@ namespace WinFormsApp3.Player
         
         public Player(int wWidth, int wHight, Control.ControlCollection controls, List<Control> gameObjects, string name, int health)
         {
+            inventoryUI = new InventoryUI();
             WWidth = wWidth;
             WHight = wHight;
             Camera = new Camera(this, wWidth, wHight);
@@ -100,7 +102,7 @@ namespace WinFormsApp3.Player
             );
         }
 
-        public void OpenDoor(Rectangle ZZZone) 
+        public void OpenDoor(Rectangle ZZZone, PaintEventArgs e) 
         {
             var door = GameObject.OfType<PictureBox>()
                      .FirstOrDefault(obj => obj.Name == "Door" && ZZZone.IntersectsWith(obj.Bounds)); // Поиск в зоне действия
@@ -116,9 +118,8 @@ namespace WinFormsApp3.Player
         }
 
 
-        public void CollectTree(Rectangle Zone)
+        public void CollectTree(Rectangle Zone, PaintEventArgs e)
         {
-
             
             var tree = GameObject.OfType<PictureBox>()
                                  .FirstOrDefault(obj => obj.Name == "Tree" && Zone.IntersectsWith(obj.Bounds)); // Поиск в зоне действия
@@ -130,17 +131,18 @@ namespace WinFormsApp3.Player
 
 
                 inventory.AddItemToInventory(new Wood());
+                inventoryUI.UpdateInventory(e);
             }
         }
 
         // Harvesting event
-        public delegate void InteractHandler(Rectangle Zone);
+        public delegate void InteractHandler(Rectangle Zone, PaintEventArgs e);
         public event InteractHandler? InteractEvent;
-        public void Interact()
+        public void Interact(PaintEventArgs e)
         {
             Rectangle Zone = GetAttackZone(Sprite);
 
-            InteractEvent?.Invoke(Zone);
+            InteractEvent?.Invoke(Zone, e);
 
         }
     }
